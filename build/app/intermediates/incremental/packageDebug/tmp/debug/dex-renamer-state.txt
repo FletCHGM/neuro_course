@@ -1,0 +1,4 @@
+#Mon Nov 27 03:34:46 MSK 2023
+base.0=D\:\\desktop\\projects\\flutter_apps\\Mine\\neuro_course\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+path.0=classes.dex
+renamed.0=classes.dex

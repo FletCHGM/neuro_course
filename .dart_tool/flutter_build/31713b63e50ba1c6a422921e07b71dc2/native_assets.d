@@ -1,0 +1,1 @@
+ D:\\desktop\\projects\\flutter_apps\\Mine\\neuro_course\\.dart_tool\\flutter_build\\31713b63e50ba1c6a422921e07b71dc2\\native_assets.yaml: 
