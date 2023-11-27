@@ -33,6 +33,8 @@ class CourseLibraryState extends State<CourseLibrary> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      endDrawer: const Drawer(),
+      drawerEdgeDragWidth: MediaQuery.of(context).size.width / 2,
       appBar: AppBar(
         elevation: 4,
         scrolledUnderElevation: 4,
@@ -55,130 +57,26 @@ class CourseLibraryState extends State<CourseLibrary> {
             ],
           ),
         ),
-        actions: [
-          Align(
-              alignment: Alignment.centerRight,
-              child: IconButton(
-                  onPressed: () {},
-                  splashColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  focusColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  icon: SvgPicture.asset('assets/icon/menu.svg')))
-        ],
       ),
       body: Center(
-        child: Column(
-          children: [
-            SizedBox(
-              height: height(32, context),
-            ),
-            Center(
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        _librarySelected = !_librarySelected;
-                      });
-                    },
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text('Созданные курсы',
-                                style: Jost(height(18, context), Colors.black,
-                                    FontWeight.w300)),
-                            const SizedBox(
-                              width: 7,
-                            ),
-                            _librarySelected
-                                ? SvgPicture.asset('assets/icon/up.svg')
-                                : SvgPicture.asset('assets/icon/down.svg')
-                          ],
-                        ),
-                        Container(
-                          width: width(179, context),
-                          decoration: BoxDecoration(
-                              border: Border.all(color: MainColors.mainPurple)),
-                        )
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    width: width(32, context),
-                  ),
-                  InkWell(
-                    onTap: () {},
-                    child: Container(
-                      width: width(101, context),
-                      height: 26,
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
-                        ),
-                        color: MainColors.mainPurple,
-                      ),
-                      child: Center(
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            SvgPicture.asset('assets/icon/plus.svg'),
-                            const SizedBox(
-                              width: 7,
-                            ),
-                            Text(
-                              'Создать',
-                              style: Jost(18, Colors.white, FontWeight.w400),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(
+                height: height(32, context),
               ),
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: height(668.25, context),
-              child: ListView(
-                children: [
-                  AnimatedContainer(
-                      duration: const Duration(milliseconds: 150),
-                      width: MediaQuery.of(context).size.width,
-                      height: !_librarySelected
-                          ? 0
-                          : height(228, context) * (library.length),
-                      child: Column(
-                        children: [
-                          for (var i = 0; i < library.length; i++)
-                            Column(
-                              children: [
-                                SizedBox(
-                                  height: height(20, context),
-                                ),
-                                CourseWidget(courseModel: library[i]),
-                                SizedBox(
-                                  height: height(20, context),
-                                )
-                              ],
-                            )
-                        ],
-                      )),
-                  SizedBox(
-                    height: height(10, context),
-                  ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: EdgeInsets.only(left: width(32, context)),
-                      child: InkWell(
+              SizedBox(
+                height: height(27.86, context),
+                child: Center(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      InkWell(
                         onTap: () {
                           setState(() {
-                            _archiveSelected = !_archiveSelected;
+                            _librarySelected = !_librarySelected;
                           });
                         },
                         child: Column(
@@ -186,19 +84,19 @@ class CourseLibraryState extends State<CourseLibrary> {
                             Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Text('Архив',
+                                Text('Созданные курсы',
                                     style: Jost(height(18, context),
                                         Colors.black, FontWeight.w300)),
                                 const SizedBox(
                                   width: 7,
                                 ),
-                                _archiveSelected
+                                _librarySelected
                                     ? SvgPicture.asset('assets/icon/up.svg')
                                     : SvgPicture.asset('assets/icon/down.svg')
                               ],
                             ),
                             Container(
-                              width: width(85, context),
+                              width: width(179, context),
                               decoration: BoxDecoration(
                                   border:
                                       Border.all(color: MainColors.mainPurple)),
@@ -206,34 +104,141 @@ class CourseLibraryState extends State<CourseLibrary> {
                           ],
                         ),
                       ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: height(20, context),
-                  ),
-                  AnimatedContainer(
-                      duration: const Duration(milliseconds: 150),
-                      width: MediaQuery.of(context).size.width,
-                      height: !_archiveSelected
-                          ? 0
-                          : height(228, context) * (archive.length),
-                      child: Column(
-                        children: [
-                          for (var i = 0; i < archive.length; i++)
-                            Column(
+                      SizedBox(
+                        width: width(32, context),
+                      ),
+                      InkWell(
+                        onTap: () {},
+                        child: Container(
+                          width: width(101, context),
+                          height: height(26, context),
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10),
+                            ),
+                            color: MainColors.mainPurple,
+                          ),
+                          child: Center(
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
                               children: [
-                                CourseWidget(courseModel: archive[i]),
-                                SizedBox(
-                                  height: height(40, context),
+                                SvgPicture.asset('assets/icon/plus.svg'),
+                                const SizedBox(
+                                  width: 7,
+                                ),
+                                Text(
+                                  'Создать',
+                                  style: Jost(height(16, context), Colors.white,
+                                      FontWeight.w400),
                                 )
                               ],
-                            )
-                        ],
-                      )),
-                ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-            ),
-          ],
+              Center(
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height -
+                      MediaQuery.of(context).padding.top -
+                      MediaQuery.of(context).padding.bottom -
+                      AppBar().preferredSize.height -
+                      height(32, context) -
+                      height(27.86, context),
+                  child: ListView(
+                    children: [
+                      AnimatedSize(
+                          duration: const Duration(milliseconds: 150),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: _librarySelected
+                                ? [
+                                    for (var i = 0; i < library.length; i++)
+                                      Column(
+                                        children: [
+                                          SizedBox(
+                                            height: height(20, context),
+                                          ),
+                                          CourseWidget(courseModel: library[i]),
+                                          SizedBox(
+                                            height: height(20, context),
+                                          )
+                                        ],
+                                      )
+                                  ]
+                                : [],
+                          )),
+                      SizedBox(
+                        height: height(10, context),
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: EdgeInsets.only(left: width(32, context)),
+                          child: InkWell(
+                            onTap: () {
+                              setState(() {
+                                _archiveSelected = !_archiveSelected;
+                              });
+                            },
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text('Архив',
+                                        style: Jost(height(18, context),
+                                            Colors.black, FontWeight.w300)),
+                                    const SizedBox(
+                                      width: 7,
+                                    ),
+                                    _archiveSelected
+                                        ? SvgPicture.asset('assets/icon/up.svg')
+                                        : SvgPicture.asset(
+                                            'assets/icon/down.svg')
+                                  ],
+                                ),
+                                Container(
+                                  width: width(85, context),
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: MainColors.mainPurple)),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: height(20, context),
+                      ),
+                      AnimatedSize(
+                          duration: const Duration(milliseconds: 150),
+                          child: Column(
+                            children: _archiveSelected
+                                ? [
+                                    for (var i = 0; i < archive.length; i++)
+                                      Column(
+                                        children: [
+                                          CourseWidget(courseModel: archive[i]),
+                                          SizedBox(
+                                            height: height(40, context),
+                                          )
+                                        ],
+                                      )
+                                  ]
+                                : [],
+                          )),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

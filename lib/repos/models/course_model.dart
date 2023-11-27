@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:neuro_course/repos/models/colors.dart';
 import 'package:neuro_course/repos/models/sizes.dart';
 import 'package:neuro_course/repos/models/text_styles.dart';
@@ -30,114 +31,171 @@ class CourseWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     tags.shuffle();
     courseModel.courseTags.sort((a, b) => a.length.compareTo(b.length));
-    return Container(
-      width: width(312, context),
-      height: height(188, context),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-              blurRadius: 29,
-              color: const Color.fromARGB(255, 100, 100, 111).withOpacity(0.2),
-              offset: const Offset(0, 7)),
-        ],
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(15),
-        child: Stack(
-          children: [
-            Positioned(
-              top: -5,
-              right: 0,
-              child: InkWell(
-                onTap: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                      title: Center(
-                        child: Text(
-                          'Курс ${courseModel.courseName}',
-                          style: Jost(22, Colors.black, FontWeight.w400),
-                        ),
-                      ),
-                      actions: [
-                        Center(
-                          child: ElevatedButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: Text(
-                                'Удалить',
-                                style: Jost(15, Colors.white, FontWeight.w400),
-                              )),
-                        ),
-                        Center(
-                          child: ElevatedButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: Text(
-                                'Экспортировать',
-                                style: Jost(15, Colors.white, FontWeight.w400),
-                              )),
-                        )
-                      ],
+    return Center(
+      child: InkWell(
+        onLongPress: () {
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              backgroundColor: Colors.white,
+              surfaceTintColor: Colors.white,
+              title: Center(
+                child: Text(
+                  'Курс ${courseModel.courseName}',
+                  style: Jost(22, Colors.black, FontWeight.w400),
+                ),
+              ),
+              actions: [
+                Center(
+                  child: ElevatedButton(
+                      style: const ButtonStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll(MainColors.mainPurple)),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text(
+                        'Удалить',
+                        style: Jost(15, Colors.white, FontWeight.w400),
+                      )),
+                ),
+                Center(
+                  child: ElevatedButton(
+                      style: const ButtonStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll(MainColors.mainPurple)),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text(
+                        'Экспортировать',
+                        style: Jost(15, Colors.white, FontWeight.w400),
+                      )),
+                )
+              ],
+            ),
+          );
+        },
+        focusColor: Colors.transparent,
+        hoverColor: Colors.transparent,
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+        child: Container(
+          width: width(312, context),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                  blurRadius: 29,
+                  color:
+                      const Color.fromARGB(255, 100, 100, 111).withOpacity(0.2),
+                  offset: const Offset(0, 7)),
+            ],
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(15),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      courseModel.courseName,
+                      style: Jost(22, Colors.black, FontWeight.w400),
                     ),
-                  );
-                },
-                child: const Icon(Icons.more_horiz),
-              ),
-            ),
-            Positioned(
-              left: 7,
-              child: Text(
-                courseModel.courseName,
-                style: Jost(22, Colors.black, FontWeight.w400),
-              ),
-            ),
-            Positioned(
-              top: 35,
-              left: 7,
-              right: 7,
-              child: Text(
-                courseModel.courseTitle,
-                style: Jost(15, Colors.black, FontWeight.w400),
-              ),
-            ),
-            Positioned(
-              bottom: 0,
-              left: 7,
-              right: 7,
-              child: Wrap(
-                spacing: 7,
-                runSpacing: 10,
-                children: [
-                  for (var i = 0; i < courseModel.courseTags.length; i++)
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Container(
-                          height: 22,
-                          decoration: BoxDecoration(
-                              border: Border.all(color: tags[i]),
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(8))),
-                          child: Center(
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 5, right: 5),
+                    MaxGap(width(312, context)),
+                    InkWell(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            backgroundColor: Colors.white,
+                            surfaceTintColor: Colors.white,
+                            title: Center(
                               child: Text(
-                                courseModel.courseTags[i],
-                                style: Jost(15, Colors.black, FontWeight.w400),
+                                'Курс ${courseModel.courseName}',
+                                style: Jost(22, Colors.black, FontWeight.w400),
                               ),
                             ),
+                            actions: [
+                              Center(
+                                child: ElevatedButton(
+                                    style: const ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStatePropertyAll(
+                                                MainColors.mainPurple)),
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text(
+                                      'Удалить',
+                                      style: Jost(
+                                          15, Colors.white, FontWeight.w400),
+                                    )),
+                              ),
+                              Center(
+                                child: ElevatedButton(
+                                    style: const ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStatePropertyAll(
+                                                MainColors.mainPurple)),
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text(
+                                      'Экспортировать',
+                                      style: Jost(
+                                          15, Colors.white, FontWeight.w400),
+                                    )),
+                              )
+                            ],
                           ),
-                        ),
-                      ],
+                        );
+                      },
+                      child: const Icon(Icons.more_horiz),
                     ),
-                ],
-              ),
-            )
-          ],
+                  ],
+                ),
+                Text(
+                  courseModel.courseTitle,
+                  style: Jost(15, Colors.black, FontWeight.w400),
+                ),
+                Gap(height(5, context)),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Wrap(
+                    spacing: 7,
+                    runSpacing: 10,
+                    children: [
+                      for (var i = 0; i < courseModel.courseTags.length; i++)
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Container(
+                              height: 22,
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: tags[i]),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(8))),
+                              child: Center(
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.only(left: 5, right: 5),
+                                  child: Text(
+                                    courseModel.courseTags[i],
+                                    style:
+                                        Jost(15, Colors.black, FontWeight.w400),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
         ),
       ),
     );
