@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:neuro_course/repos/func/export.dart';
 import 'package:neuro_course/repos/models/colors.dart';
 import 'package:neuro_course/repos/models/sizes.dart';
 import 'package:neuro_course/repos/models/text_styles.dart';
@@ -27,28 +28,35 @@ class CourseWidget extends StatelessWidget {
   CourseModel courseModel;
   List<Color> tags = tagItemsColors;
 
-  @override
-  Widget build(BuildContext context) {
-    tags.shuffle();
-    courseModel.courseTags.sort((a, b) => a.length.compareTo(b.length));
-    return Center(
-      child: InkWell(
-        onLongPress: () {
-          showDialog(
-            context: context,
-            builder: (context) => AlertDialog(
-              backgroundColor: Colors.white,
-              surfaceTintColor: Colors.white,
-              title: Center(
-                child: Text(
-                  'Курс ${courseModel.courseName}',
-                  style: Jost(22, Colors.black, FontWeight.w400),
-                ),
-              ),
-              actions: [
+  void showCourseActions(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10))),
+        backgroundColor: Colors.white,
+        surfaceTintColor: Colors.white,
+        title: Center(
+          child: Text(
+            'Курс "${courseModel.courseName}"',
+            style: Jost(width(22, context), Colors.black, FontWeight.w400),
+          ),
+        ),
+        actions: [
+          Center(
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
                 Center(
                   child: ElevatedButton(
                       style: const ButtonStyle(
+                          shape: MaterialStatePropertyAll(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                            ),
+                          ),
                           backgroundColor:
                               MaterialStatePropertyAll(MainColors.mainPurple)),
                       onPressed: () {
@@ -56,25 +64,54 @@ class CourseWidget extends StatelessWidget {
                       },
                       child: Text(
                         'Удалить',
-                        style: Jost(15, Colors.white, FontWeight.w400),
+                        style: Jost(
+                            width(16, context), Colors.white, FontWeight.w400),
                       )),
                 ),
+                Gap(width(15, context)),
                 Center(
                   child: ElevatedButton(
-                      style: const ButtonStyle(
-                          backgroundColor:
-                              MaterialStatePropertyAll(MainColors.mainPurple)),
+                      style: ButtonStyle(
+                          padding: MaterialStatePropertyAll(EdgeInsets.only(
+                              top: height(3, context),
+                              left: width(10, context),
+                              bottom: height(3, context),
+                              right: width(10, context))),
+                          shape: const MaterialStatePropertyAll(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                            ),
+                          ),
+                          backgroundColor: const MaterialStatePropertyAll(
+                              MainColors.mainPurple)),
                       onPressed: () {
                         Navigator.pop(context);
+                        exportFile(context);
                       },
                       child: Text(
                         'Экспортировать',
-                        style: Jost(15, Colors.white, FontWeight.w400),
+                        style: Jost(
+                            width(16, context), Colors.white, FontWeight.w400),
                       )),
-                )
+                ),
               ],
             ),
-          );
+          )
+        ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    tags.shuffle();
+    courseModel.courseTags.sort((a, b) => a.length.compareTo(b.length));
+    return Center(
+      child: InkWell(
+        onLongPress: () {
+          showCourseActions(context);
         },
         focusColor: Colors.transparent,
         hoverColor: Colors.transparent,
@@ -105,51 +142,7 @@ class CourseWidget extends StatelessWidget {
                     MaxGap(width(312, context)),
                     InkWell(
                       onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            backgroundColor: Colors.white,
-                            surfaceTintColor: Colors.white,
-                            title: Center(
-                              child: Text(
-                                'Курс ${courseModel.courseName}',
-                                style: Jost(22, Colors.black, FontWeight.w400),
-                              ),
-                            ),
-                            actions: [
-                              Center(
-                                child: ElevatedButton(
-                                    style: const ButtonStyle(
-                                        backgroundColor:
-                                            MaterialStatePropertyAll(
-                                                MainColors.mainPurple)),
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: Text(
-                                      'Удалить',
-                                      style: Jost(
-                                          15, Colors.white, FontWeight.w400),
-                                    )),
-                              ),
-                              Center(
-                                child: ElevatedButton(
-                                    style: const ButtonStyle(
-                                        backgroundColor:
-                                            MaterialStatePropertyAll(
-                                                MainColors.mainPurple)),
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: Text(
-                                      'Экспортировать',
-                                      style: Jost(
-                                          15, Colors.white, FontWeight.w400),
-                                    )),
-                              )
-                            ],
-                          ),
-                        );
+                        showCourseActions(context);
                       },
                       child: const Icon(Icons.more_horiz),
                     ),
